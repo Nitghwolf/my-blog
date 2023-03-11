@@ -1,9 +1,20 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { checkIsAuth, logout } from '../store/features/auth/authSlice';
 
 const NavBar = () => {
+    const isAuth = useSelector(checkIsAuth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const isAuth = false;
+    const handlerLogout = () => {
+        dispatch(logout());
+        window.localStorage.removeItem('token');
+        navigate('/');
+        toast('Вы вышли из системы');
+    };
 
     const activeStyle = {
         color: "white"
@@ -42,7 +53,7 @@ const NavBar = () => {
 
             <div className='flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm px-4 py-2'>
                 {isAuth ? (
-                    <button>Выйти</button>
+                    <button onClick={handlerLogout}>Выйти</button>
                     )
                     : <Link to={'/login'} >Войти</Link>
                 }

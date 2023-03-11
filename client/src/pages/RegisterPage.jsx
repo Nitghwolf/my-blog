@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../store/features/auth/async';
+import { toast } from 'react-toastify';
+import { checkIsAuth } from '../store/features/auth/authSlice';
 
 const RegisterPage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {status} = useSelector((state) => state.auth);
+    const isAuth = useSelector(checkIsAuth);
 
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        status && toast(status);
+        isAuth && navigate('/');
+    }, [status, isAuth, navigate]);
 
     const handleSubmit = () => {
         try{
