@@ -37,7 +37,6 @@ export const registration = async (req, res) => {
         });
     }
     catch (error){
-        console.log(error);
         res.json({
             message: "Error, not BD"
         });
@@ -78,7 +77,6 @@ export const login = async (req, res) => {
         });
     }
     catch (error){
-        console.log(error);
         res.json({
             message: "Ошибка при авторизации"
         })
@@ -106,7 +104,6 @@ export const getMe = async (req, res) => {
         res.json({user, token});
     }
     catch (error){
-        console.log(error);
         res.json({
             message: "Нет доступа"
         })
