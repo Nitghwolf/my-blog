@@ -24,4 +24,76 @@
   .nav-register{
     @apply flex justify-center items-center text-xs text-white;
   }
+
+  .addPost-form-label{
+    @apply text-gray-300 py-2 bg-gray-600 text-xs mt-2 flex items-center justify-center border-2 border-dotted cursor-pointer;
+  }
+
+  .addpost-inputtextArea{
+    @apply mt-1 text-black w-full rounded-lg bg-gray-500 border py-1 px-2 text-xs outline-none resize-none placeholder:text-gray-400 h-40;
+  }
+
+  .addPost-buttonContainer{
+    @apply flex gap-8 items-center justify-center mt-4;
+  }
+
+  .button-confirm{
+    @apply flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm py-2 px-4;
+  }
+
+  .button-cancel{
+    @apply flex justify-center items-center bg-red-500 text-xs text-white rounded-sm py-2 px-4;
+  }
+
+  .mainPage{
+    @apply max-w-[980px] mx-auto py-10;
+  }
+
+  .flexContainerPosts{
+    @apply flex justify-between gap-8;
+  }
+
+  .postsContainer{
+    @apply flex flex-col gap-10 basis-4/5;
+  }
+
+  .postItem{
+    @apply flex flex-col basis-1/4 flex-grow;
+  }
+
+  .postInfo{
+    @apply flex justify-between items-center pt-2;
+  }
+
+  .username{
+    @apply text-xs text-white opacity-50;
+  }
+
+  .postTitle{
+    @apply text-white text-xl;
+  }
+
+  .postText{
+    @apply text-white opacity-60 text-xs pt-4;
+  }
+
+  .postButtonContainer{
+    @apply flex gap-3 items-center mt-2;
+  }
+
+  .postButton{
+    @apply flex items-center justify-center gap-2 text-xs text-white opacity-50;
+  }
+
+  .popularPost{
+    @apply bg-gray-600 my-1;
+  }
+
+  .popularPostTitle{
+    @apply flex text-xs p-2 text-gray-300 hover:bg-gray-800 hover:text-white;
+  }
+
+  .postImage{
+    @apply flex rounded-sm h-80;
+  }
 }

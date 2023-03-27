@@ -9,7 +9,7 @@ export const createPost = async(req, res) => {
         const { title, text } = req.body;
         const user = await User.findById(req.userId);
 
-        if(req.file){
+        if(req.files){
             const filename = Date.now().toString() + req.files.image.name;
             const __dirname = dirname(fileURLToPath(import.meta.url));
             req.files.image.mv(path.join(__dirname, '..', 'uploads', filename));
@@ -46,5 +46,20 @@ export const createPost = async(req, res) => {
         return res.json(newPostWithoutImage);
     } catch (error) {
         res.json({message: 'Не удалось сохранить пост'})
+    }
+};
+
+export const getAllPosts = async(req, res) => {
+    try {
+        const posts = await Post.find().sort('-createdAt');
+        const popularPosts = await Post.find().limit(5).sort('-views');
+
+        if(!posts){
+            return res.json({message: 'Постов нет'});
+        }
+
+        res.json({posts, popularPosts})
+    } catch (error) {
+        res.json({message: 'Не удалось получить посты'})
     }
 };
