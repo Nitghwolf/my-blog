@@ -66,7 +66,7 @@ export const getAllPosts = async (req, res) => {
 
 export const getPostById = async (req, res) => {
     try {
-        const post = await Post.findOneAndUpdate(req.params.id, {
+        const post = await Post.findByIdAndUpdate(req.params.id, {
             $inc: { views: 1 },
         });
 

@@ -96,4 +96,24 @@
   .postImage{
     @apply flex rounded-sm h-80;
   }
+
+  .backButton{
+    @apply bg-gray-600 text-xs text-white rounded-sm py-2 px-4;
+  }
+
+  .exitButton{
+    @apply flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm px-4 py-2;
+  }
+
+  .navBarLink{
+    @apply text-xs text-gray-400 hover:text-white;
+  }
+
+  .navBarIcon{
+    @apply flex justify-center items-center w-6 h-6 bg-gray-600 text-xs text-white rounded-sm;
+  }
+
+  .navBarContainer{
+    @apply flex py-4 justify-between items-center;
+  }
 }
