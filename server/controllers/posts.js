@@ -1,15 +1,15 @@
 import Post from '../models/Post.js';
 import User from '../models/User.js';
-import path, {dirname} from 'path';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 // Create Post
-export const createPost = async(req, res) => {
+export const createPost = async (req, res) => {
     try {
         const { title, text } = req.body;
         const user = await User.findById(req.userId);
 
-        if(req.files){
+        if (req.files) {
             const filename = Date.now().toString() + req.files.image.name;
             const __dirname = dirname(fileURLToPath(import.meta.url));
             req.files.image.mv(path.join(__dirname, '..', 'uploads', filename));
@@ -24,7 +24,7 @@ export const createPost = async(req, res) => {
 
             await newPostWithImage.save();
             await User.findByIdAndUpdate(req.userId, {
-                $push: {posts: newPostWithImage},
+                $push: { posts: newPostWithImage },
             });
 
             return res.json(newPostWithImage);
@@ -40,26 +40,38 @@ export const createPost = async(req, res) => {
 
         await newPostWithoutImage.save();
         await User.findByIdAndUpdate(req.userId, {
-            $push: {posts: newPostWithoutImage},
+            $push: { posts: newPostWithoutImage },
         });
 
         return res.json(newPostWithoutImage);
     } catch (error) {
-        res.json({message: 'Не удалось сохранить пост'})
+        res.json({ message: 'Не удалось сохранить пост' })
     }
 };
 
-export const getAllPosts = async(req, res) => {
+export const getAllPosts = async (req, res) => {
     try {
         const posts = await Post.find().sort('-createdAt');
         const popularPosts = await Post.find().limit(5).sort('-views');
 
-        if(!posts){
-            return res.json({message: 'Постов нет'});
+        if (!posts) {
+            return res.json({ message: 'Постов нет' });
         }
 
-        res.json({posts, popularPosts})
+        res.json({ posts, popularPosts })
     } catch (error) {
-        res.json({message: 'Не удалось получить посты'})
+        res.json({ message: 'Не удалось получить посты' })
+    }
+};
+
+export const getPostById = async (req, res) => {
+    try {
+        const post = await Post.findOneAndUpdate(req.params.id, {
+            $inc: { views: 1 },
+        });
+
+        res.json(post)
+    } catch (error) {
+        res.json({ message: "Пост не найден" });
     }
 };
