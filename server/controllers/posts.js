@@ -75,3 +75,19 @@ export const getPostById = async (req, res) => {
         res.json({ message: "Пост не найден" });
     }
 };
+
+export const getUserPosts = async (req, res) => {
+    try {
+        const user = await User.findById(req.userId);
+
+        const postsList = await Promise.all(
+            user.posts.map(post => {
+                return Post.findById(post._id);
+            })
+        );
+
+        res.json(postsList);
+    } catch (error) {
+        res.json({ message: "Посты не найдены" });
+    }
+};

@@ -26,7 +26,7 @@ const RegisterPage = () => {
             setUserName('');
         }
         catch(error){
-            console.log(error);
+            toast(error);
         }
     };
 
