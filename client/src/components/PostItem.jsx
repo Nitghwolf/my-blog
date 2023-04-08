@@ -3,7 +3,9 @@ import { AiFillEye, AiOutlineMessage } from 'react-icons/ai';
 import Momet from 'react-moment';
 import { Link } from 'react-router-dom';
 
+
 const PostItem = ({ post }) => {
+
     if (!post) {
         return (<div className='text-xl text-center text-white py-10'>Загрузка...</div>);
     }
@@ -24,12 +26,14 @@ const PostItem = ({ post }) => {
                 <div className='postText'>{post.text}</div>
 
                 <div className='postButtonContainer'>
-                    <button className='postButton'>
-                        <AiFillEye /> <span>{post.views}</span>
-                    </button>
-                    <button className='postButton'>
-                        <AiOutlineMessage /> <span>{post.comments?.length}</span>
-                    </button>
+                    <div className='flexGap3'>
+                        <button className='postButton'>
+                            <AiFillEye /> <span>{post.views}</span>
+                        </button>
+                        <button className='postButton'>
+                            <AiOutlineMessage /> <span>{post.comments?.length}</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </Link>

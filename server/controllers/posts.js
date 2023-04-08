@@ -91,3 +91,19 @@ export const getUserPosts = async (req, res) => {
         res.json({ message: "Посты не найдены" });
     }
 };
+
+export const removePost = async (req, res) => {
+    try {
+        const post = await Post.findByIdAndDelete(req.params.id);
+
+        if(!post){
+            return res.json({message: "Такого поста нет"});
+        }
+        await User.findByIdAndUpdate(req.userId, {
+            $pull: {posts: req.params.id},
+        });
+        res.json({ message: "Пост удалён" });
+    } catch (error) {
+        res.json({ message: "Удаление не удалось" });
+    }
+};
