@@ -36,3 +36,15 @@ export const removePost = createAsyncThunk(
             console.log(error);
         }
 });
+
+export const updatePost = createAsyncThunk(
+    'post/updatePost', 
+    async (updatedPost) => {
+        try{
+            const { data } = await axios.put(`/posts/${updatedPost.id}`, updatedPost);
+            return data;
+        }
+        catch(error){
+            console.log(error);
+        }
+});

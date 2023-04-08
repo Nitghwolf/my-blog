@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createPost, getAllPosts, removePost } from './async';
+import { createPost, getAllPosts, removePost, updatePost } from './async';
 
 const initialState = {
     posts: [],
@@ -49,6 +49,19 @@ export const postSlice = createSlice({
             state.posts = state.posts.filter(post => post._id !== action.payload._id);
         },
         [removePost.rejected]: (state) => {
+            state.isLoading = false;
+        },
+
+        //Update Post
+        [updatePost.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [updatePost.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            const index = state.posts.findIndex(post => post._id === action.payload._id);
+            state.posts[index] = action.payload;
+        },
+        [updatePost.rejected]: (state) => {
             state.isLoading = false;
         },
     }

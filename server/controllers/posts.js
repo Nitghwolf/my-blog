@@ -107,3 +107,32 @@ export const removePost = async (req, res) => {
         res.json({ message: "Удаление не удалось" });
     }
 };
+
+
+export const updatePost = async (req, res) => {
+    try {
+        const { title, text, id } = req.body;
+
+        const post = await Post.findById(id);
+
+        if(!post){
+            return res.json({message: "Такого поста нет"});
+        }
+
+        if (req.files) {
+            const filename = Date.now().toString() + req.files.image.name;
+            const __dirname = dirname(fileURLToPath(import.meta.url));
+            req.files.image.mv(path.join(__dirname, '..', 'uploads', filename));
+            post.imgUrl = filename || '';
+        }
+
+        post.title = title;
+        post.text = text;
+
+        await post.save();
+
+        res.json(post);
+    } catch (error) {
+        res.json({ message: "Удаление не удалось" });
+    }
+};

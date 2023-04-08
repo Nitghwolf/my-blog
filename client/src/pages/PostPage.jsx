@@ -44,7 +44,9 @@ const PostPage = () => {
                         user?._id === post?.author && (
                             <div className='flexGap3-right'>
                                 <button className='postButton text-lg'>
-                                    <AiTwotoneEdit />
+                                    <Link to={`/${params.id}/edit`}>
+                                        <AiTwotoneEdit />
+                                    </Link>
                                 </button>
                                 <button className='postButton text-lg' onClick={removePostHendler}>
                                     <AiFillDelete />
