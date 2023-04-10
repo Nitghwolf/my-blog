@@ -25,6 +25,18 @@ export const getAllPosts = createAsyncThunk(
         }
 });
 
+export const getUserPosts = createAsyncThunk(
+    'post/getUserPosts', 
+    async () => {
+        try{
+            const { data } = await axios.get('/posts/user/myposts');
+            return data;
+        }
+        catch(error){
+            console.log(error);
+        }
+});
+
 export const removePost = createAsyncThunk(
     'post/removePost', 
     async (id) => {

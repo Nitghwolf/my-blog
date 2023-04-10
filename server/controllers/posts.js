@@ -2,6 +2,7 @@ import Post from '../models/Post.js';
 import User from '../models/User.js';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import Comment from '../models/Comment.js';
 
 // Create Post
 export const createPost = async (req, res) => {
@@ -60,7 +61,7 @@ export const getAllPosts = async (req, res) => {
 
         res.json({ posts, popularPosts })
     } catch (error) {
-        res.json({ message: 'Не удалось получить посты' })
+        res.json({ message: 'Не удалось получить посты' });
     }
 };
 
@@ -134,5 +135,20 @@ export const updatePost = async (req, res) => {
         res.json(post);
     } catch (error) {
         res.json({ message: "Удаление не удалось" });
+    }
+};
+
+export const getPostComments = async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        const listComments = await Promise.all(
+            post.comments.map( comment => {
+                return Comment.findById(comment);
+            }),
+        );
+        
+        res.json(listComments);
+    } catch (error) {
+        res.json({ message: error });
     }
 };

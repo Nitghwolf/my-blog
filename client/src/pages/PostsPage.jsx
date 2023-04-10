@@ -1,25 +1,16 @@
 import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 import PostItem from '../components/PostItem';
-import axios from '../utils/axios';
+import { getUserPosts } from '../store/features/post/async';
+
 
 const PostsPage = () => {
-    const [posts, setPosts] = useState([]);
-
-    const fetchUserPosts = async () => {
-        try {
-            const {data} = await axios.get('/posts/user/myposts');
-
-            setPosts(data);
-        } catch (error) {
-            toast(error);
-        }
-    };
+    const dispatch = useDispatch();
+    const posts = useSelector(state => state.post.userPosts);
 
     useEffect(() => {
-        fetchUserPosts();
-    }, []);
+        dispatch(getUserPosts());
+    }, [dispatch]);
 
     return (
         <div className='w-1/2 mx-auto py-10 flex flex-col gap-10'>

@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createPost, getAllPosts, removePost, updatePost } from './async';
+import { createPost, getAllPosts, getUserPosts, removePost, updatePost } from './async';
 
 const initialState = {
     posts: [],
+    userPosts: [],
     popularPosts: [],
     isLoading: false
 };
@@ -37,6 +38,18 @@ export const postSlice = createSlice({
             state.popularPosts = action.payload.popularPosts;
         },
         [getAllPosts.rejected]: (state) => {
+            state.isLoading = false;
+        },
+
+        //Get user Posts
+        [getUserPosts.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [getUserPosts.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.userPosts = action.payload;
+        },
+        [getUserPosts.rejected]: (state) => {
             state.isLoading = false;
         },
 
